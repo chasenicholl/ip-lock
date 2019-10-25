@@ -6,8 +6,8 @@ from ip_lock import __VERSION__
 
 
 INSTALL_REQUIRES = [
-    'pyyaml',
-    'requests'
+    'pyyaml==5.1.2',
+    'requests==2.21.0'
 ]
 
 
@@ -21,4 +21,5 @@ if __name__ == '__main__':
           url='https://github.com/chasenicholl/ip-lock',
           packages=find_packages(),
           scripts=['bin/ip_lock'],
-          install_requires=INSTALL_REQUIRES)
+          install_requires=INSTALL_REQUIRES,
+          include_package_data=True)
