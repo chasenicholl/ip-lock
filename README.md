@@ -10,7 +10,7 @@ A Python Utility for updating your DNS provider with your dynamic public IP.
 ### Installation
 
 ```shell
-curl -sSL https:// | bash
+curl -sSL https://raw.githubusercontent.com/chasenicholl/ip-lock/master/install.sh | bash
 ```
 
 
