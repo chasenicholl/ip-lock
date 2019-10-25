@@ -27,7 +27,8 @@ def get_logger(name, as_json=False, loglevel=None, stream=sys.stdout):
         formatter = logging.Formatter(log_format)
         stream_handler.setFormatter(formatter)
     else:
-        log_format = '[%(name)s]{%(levelname)s}(%(process)d) %(message)s'
+        log_format = ('%(asctime)s [%(name)s]{%(levelname)s}'
+                      '(%(process)d) %(message)s')
         formatter = logging.Formatter(log_format)
         stream_handler.setFormatter(formatter)
     logger.addHandler(stream_handler)
