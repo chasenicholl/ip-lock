@@ -1,0 +1,19 @@
+*pyc
+__pycache__
+
+# OS Generated #
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+*.swp
+
+.pytest_cache
+
+test.py
+
+build
+dist
+*.egg-info
+
+config.yml

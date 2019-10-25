@@ -1,0 +1,8 @@
+dns_service: cloudflare
+auth_token: YOUR_AUTH_TOKEN
+auth_email: YOUR_CLOUDFLARE_EMAIL
+dns_zone_name: yourwebsite.com
+dns_record_type: A
+target_zone_names:
+  - sub1.yourwebsite.com
+  - sub2.yourwebsite.com
