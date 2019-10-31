@@ -32,7 +32,7 @@ ip_lock path/to/your/config.yml (--verbose --force --dry-run)
 
 ### Usage as a cronjob
 
-I recommend installing this as a cronjob, or some form of system scheduled task.
+I recommend installing this as a scheduled system task, like a cronjob.
 
 ```shell
 crontab -e
