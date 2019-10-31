@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1090
 
+# Remove any previous versions
+sudo pip3 uninstall ip-lock -y
+
 # Clone Repository
 git clone https://github.com/chasenicholl/ip-lock.git
 
