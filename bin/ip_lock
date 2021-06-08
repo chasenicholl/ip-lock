@@ -4,8 +4,10 @@
 import argparse
 import os
 import importlib
+import sys
 
 
+from ip_lock import __VERSION__
 from ip_lock.config import Config
 from ip_lock.exceptions import UnsupportedDNSProvider
 from ip_lock.providers import PROVIDERS
@@ -14,45 +16,59 @@ from ip_lock.providers.cloudflare import Cloudflare
 
 def main():
     """Entrypoint"""
-    parser = argparse.ArgumentParser(description='Update DNS record with '
-                                     'your dynamic Public IP address.')
-    parser.add_argument('config',
-                        type=str,
-                        help='Path to configuration file.',
-                        default=os.getenv('IP_LOCK_CONFIG', None))
-    parser.add_argument('--verbose',
-                        '-v',
-                        action='store_true',
-                        default=False,
-                        help='Enable verbose logging.')
-    parser.add_argument('--force',
-                        '-f',
-                        action='store_true',
-                        default=False,
-                        help='Force DNS update.')
-    parser.add_argument('--dry-run',
-                        '-d',
-                        action='store_true',
-                        default=False,
-                        help='Dry run DNS update.')
+    parser = argparse.ArgumentParser(
+        description="Update DNS record with " "your dynamic Public IP address."
+    )
+    parser.add_argument(
+        "config",
+        type=str,
+        help="Path to configuration file.",
+        default=os.getenv("IP_LOCK_CONFIG", None),
+    )
+    parser.add_argument(
+        "--version",
+        action="store_true",
+        default=False,
+        help="Display Version.",
+    )
+    parser.add_argument(
+        "--verbose",
+        "-v",
+        action="store_true",
+        default=False,
+        help="Enable verbose logging.",
+    )
+    parser.add_argument(
+        "--force", "-f", action="store_true", default=False, help="Force DNS update."
+    )
+    parser.add_argument(
+        "--dry-run",
+        "-d",
+        action="store_true",
+        default=False,
+        help="Dry run DNS update.",
+    )
 
     # Load configuration file and command arguments into Config Object.
     args = parser.parse_args()
+    if args.version is True:
+        print(f"ip_lock {__VERSION__}")
+        sys.exit(0)
     config = Config(args)
     if config.dns_service not in PROVIDERS:
-        raise UnsupportedDNSProvider('Unsupported DNS '
-                                     'provider: {}'.format(config.dns_service))
+        raise UnsupportedDNSProvider(
+            "Unsupported DNS " "provider: {}".format(config.dns_service)
+        )
 
     # Dynamically Import Provider Class based on Config.dns_service value
-    module = importlib.import_module('ip_lock.providers.{}'.\
-        format(config.dns_service))
+    module = importlib.import_module("ip_lock.providers.{}".format(config.dns_service))
     provider = getattr(module, camel_case(config.dns_service))(config)
     provider.update()
 
 
 def camel_case(provider):
-    return ''.join(x for x in provider.title() if not x.isspace())
+    return "".join(x for x in provider.title() if not x.isspace())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

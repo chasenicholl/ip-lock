@@ -1,3 +1,3 @@
 """Providers"""
 
-PROVIDERS = ['cloudflare']
+PROVIDERS = ["cloudflare"]
